@@ -61,14 +61,14 @@ const trampoline2 = (f, ...args) => {
   while (typeof result === "function") {
     result = result();
   }
-  alert("calcuation is done");
+  // alert("calcuation is done");
   return result;
 };
 
 const textEl = document.querySelector("p");
 
 function listPrimeNums(number, a = 1) {
-  if (a === number) return;
+  if (a === number) return alert("Calculation is done!");
 
   let primeNumber = true;
   for (let i = 2; i < a; i++)
