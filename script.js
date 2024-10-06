@@ -34,9 +34,14 @@ function increaseCount() {
 
 // console.log(trampoline(facto(5)));
 
-const flattenArray = (n, a = 1) => {
-  if (n === 0) return a;
-  return () => flattenArray(n - 1, (a += n));
+const flattenArray = (arr, n, a = 1) => {
+  if (n === 0) return;
+
+  let newArr = arr.flat(a);
+
+  console.log(arr);
+
+  return () => flattenArray(newArr, n - 1);
 };
 
 const trampoline = (f, ...args) => {
@@ -50,8 +55,11 @@ const trampoline = (f, ...args) => {
 function countNestedArrays(arr) {
   return arr.filter((array) => Array.isArray(array)).length;
 }
-arr_nums = [2, 8, [6], 3, [3, 5], 3, 4, [5, 4]];
+
+const arr_nums = [2, 8, [6], 3, [3, 5], 3, 4, [5, 4]];
 const nestedArrayLength = countNestedArrays(arr_nums);
+
+trampoline(flattenArray(arr_nums, nestedArrayLength));
 
 // Part three
 // ========================================
@@ -82,4 +90,4 @@ function listPrimeNums(number, a = 1) {
   return () => setTimeout(listPrimeNums(number, a + 1), 10);
 }
 
-trampoline2(listPrimeNums(10000));
+// trampoline2(listPrimeNums(10000));
