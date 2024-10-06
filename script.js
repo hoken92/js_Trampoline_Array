@@ -56,19 +56,30 @@ const nestedArrayLength = countNestedArrays(arr_nums);
 // Part three
 // ========================================
 
+const trampoline2 = (f, ...args) => {
+  let result = f(...args);
+  while (typeof result === "function") {
+    result = result();
+  }
+  alert("calcuation is done");
+  return result;
+};
+
 const textEl = document.querySelector("p");
 
-function listPrimeNums(number) {
-  if (number === 0) return alert("Calculation is finished!");
+function listPrimeNums(number, a = 1) {
+  if (a === number) return;
 
-  let primeNumber = false;
-  for (let i = 2; i < number; i++)
-    if (number % i !== 0) {
-      primeNumber = true;
+  let primeNumber = true;
+  for (let i = 2; i < a; i++)
+    if (a % i === 0) {
+      primeNumber = false;
     }
-  textEl.textContent = number;
 
-  return () => setTimeout(listPrimeNums(number - 1), 500);
+  if (primeNumber) {
+    textEl.textContent = a;
+  }
+  return () => setTimeout(listPrimeNums(number, a + 1), 10);
 }
 
-trampoline(listPrimeNums(100));
+trampoline2(listPrimeNums(10000));
